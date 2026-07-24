@@ -1,0 +1,30 @@
+EasySetup_for_renpy — 轻松使用 Ren'Py
+
+Copyright GokouRuri_suki
+Licensed under Apache License, Version 2.0
+
+===============================================
+Third-Party Notices
+===============================================
+
+This project incorporates or references the following third-party works:
+
+---
+
+1. Ren'Py Visual Novel Engine
+   Copyright 2004-2024 Tom Rothamel
+   MIT License
+   https://www.renpy.org/
+   https://www.renpy.org/doc/html/license.html
+
+2. Source Han Sans SC (思源黑体)
+   Copyright 2014-2025 Adobe
+   SIL Open Font License 1.1
+   https://github.com/adobe-fonts/source-han-sans
+   License copy: game/fonts/OFL.txt
+
+---
+
+Apache 2.0 requires that any redistribution of this software
+retain the above copyright notices and this NOTICE file.
+See LICENSE for the full Apache 2.0 license text.
