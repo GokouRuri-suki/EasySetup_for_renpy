@@ -46,7 +46,7 @@ characters/ch1/
 
 ### 配置表情映射
 
-```python
+```renpy
 # 0_config.rpy
 expression_map = {
     "normal": "n",
@@ -64,7 +64,7 @@ expression_map = {
 
 ### 注册角色
 
-```python
+```renpy
 # character_definition.rpy里面写
 python early:
     character_zoom.update({
@@ -86,7 +86,7 @@ define ch = new({
 
 ### 震动
 
-```
+```renpy
 shake_x 角色 [表情] [时长] [振幅]       隐藏对话框
 shake_y 角色 [表情] [时长] [振幅]
 say_shake_x 角色 [表情] "文本" [时长] [振幅]   正常对话框
@@ -95,7 +95,7 @@ say_shake_y 角色 [表情] "文本" [时长] [振幅]
 
 ### 移动
 
-```
+```renpy
 move 角色 [表情] to_xxx [时长]
 move 角色 [表情] x y [时长]
 say_move 角色 [表情] "文本" to_xxx [时长]
@@ -106,7 +106,7 @@ show_at 角色 [表情] x y [dissolve时长]
 
 ### 合体
 
-```
+```renpy
 shake_move 角色 [表情] [x|y] to_xxx    先抖后移
 move_shake 角色 [表情] [x|y] to_xxx    先移后抖
 say_shake_move 角色 [表情] "文本" [x|y] to_xxx
