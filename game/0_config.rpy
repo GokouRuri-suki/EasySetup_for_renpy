@@ -75,6 +75,7 @@ python early:
     _last_pos = {}                 # 角色最后位置记录 {tag: (x, y)}，用于 move 语句计算起点
     _last_expr = {}                # 角色最后表情记录 {tag: attr}，用于表情记忆回退
 
+#为了实现move shake不写参数和上次调用一致 做的拦截
 init python:
     _original_renpy_show = renpy.show
     def _capture_renpy_show(name, *args, **kwargs):
