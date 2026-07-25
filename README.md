@@ -2,7 +2,7 @@
 
 [English Version](README_EN.md)
 
-让 Ren'Py 新手轻松使用的便捷工具，提供简单的自定义语句和自动化角色注册功能。
+让 Ren'Py 新手轻松使用的便捷工具， 提供简单的自定义语句和自动化角色注册功能。
 
 ## 特性
 
@@ -39,7 +39,7 @@ label start:
 ## 角色注册
 
 ### 素材目录结构
-- 假设您放角色的素材文件夹叫做`characters`,角色名`ch1`
+- 假设您放角色的素材文件夹叫做`characters`,角色名`ch1`   
 
 ```
 characters/ch1/
@@ -190,3 +190,4 @@ Apache 2.0
 Ren'Py Visual Novel Engine © 2004-2024 Tom Rothamel
 MIT License · 完整许可条款：
 https://www.renpy.org/doc/html/license.html
+
