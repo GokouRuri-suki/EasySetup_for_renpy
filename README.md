@@ -13,23 +13,30 @@
 
 ## 快速开始
 
-1\. 放入 Ren'Py 项目的 `game/` 同级
-2\. 编辑 `script.rpy`：
+1\. 下载`renpy`和`vscode`
+
+2\. 安装renpy官方插件后拖动本项目到`vscode`
+
+3\. 阅读完`README.md`快速配置,`明确许可和本项目引用项目`
+
+4\. 编辑 `script.rpy`：
 
 ```renpy
 label start:
-    show_at ch to_center
-    ch "你好！"
-    shake_x ch happy
-    move ch to_right 1.0
-    return
+    show_at ch to_center  #展示新角色ch移动到 中间
+    ch "你好！"            #ch 说你好
+    ch h "开心"            # ch 用h(happy)表情说开心
+    shake_x ch            # 按照x方向摇晃
+    move ch to_right       # 移动ch 到右边 默认0.5s
+    return                #返回主界面
 ```
 
-3\. 运行 `renpy .`
+5\. 打开 `renpy`运行
 
 ## 角色注册
 
 ### 素材目录结构
+- 假设您放角色的素材文件夹叫做`characters`,角色名`ch1`
 
 ```
 characters/ch1/
@@ -46,6 +53,7 @@ characters/ch1/
 
 ### 配置表情映射
 
+
 ```renpy
 # 0_config.rpy
 expression_map = {
@@ -61,16 +69,21 @@ expression_map = {
     "upset": "ut",
 }
 ```
+- 您可以在`0_config.rpy` 修改中指定预设
 
 ### 注册角色
 
 ```renpy
 # character_definition.rpy里面写
+
+#辅助配置解决身高问题,无视立绘尺寸不统一和帽子虚高问题
+#注意了，格式为 "image_tag":{"cm":xxx,"hat":xxx},
 python early:
     character_zoom.update({
-        "ch11111": {"cm": 160, "hat": 200}, #帮你一键完成身高问题,无视立绘尺寸不统一和帽子虚高问题
-                                            #注意了，这个是对图片的 所以是image_tag
+        "ch11111": {"cm": 160, "hat": 200}, 
     })
+
+#注册角色                                            
 #具体参数看0_config.rpy
 define ch = new({
     "name": "角色1",            #名字
@@ -82,7 +95,8 @@ define ch = new({
 
 ## 本项目的自定义语句
 
-*表情都不是必填的 默认寻找你上次用的，记住写的是给角色的define 参数（比如上面的ch）， 不是 image_tag*
+- 表情都不是必填的 默认寻找你上次用的，
+- 记住写的是给角色的`define 参数`（比如上面的ch）， 不是 image_tag
 
 ### 震动
 
