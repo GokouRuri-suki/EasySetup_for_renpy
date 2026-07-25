@@ -11,11 +11,11 @@ python early:
     move_dur = 0.5                # 移动时长（秒）
     start_pos = (0.5, -1.0)       # 角色首次出现位置 (xpos, ypos)
     dissolve_dur = 0.3            # show_at 的 默认渐入时长（秒）
-    combo_move_dur = 0.5          # 合体语句的移动时长（秒）
-    combo_shake_total = 0.48      # 合体语句的震动总时长（秒）
-    combo_shake_offset = 12       # 合体语句的震动振幅（像素）
-    side_size = 273               # 侧头像尺寸（像素）
-    ppm = 7.5                       # 像素每厘米（立绘缩放计算用） 
+    combo_move_dur = 0.7          # 合体语句（move_shake/shake_move）的移动时长（秒）
+    combo_shake_total = 0.48      # 合体语句（move_shake/shake_move）的震动总时长（秒）
+    combo_shake_offset = 12       # 合体语句（move_shake/shake_move）的震动振幅（像素）
+    side_size = 273               # 侧头像尺寸（像素，正方形边长）
+    ppm = 7.5                     # 像素每厘米（立绘缩放计算用） 
                         #一般啊 这个像素下默认还可以
                         #你在gui的搜索(ctrl+f)  gui.init可以改屏幕像素的
 
@@ -68,8 +68,22 @@ python early:
 #═══════════════════════════════════════════════════════════════════════════════════#
 # ── [DO NOT MODIFY] 以下为框架常量与运行状态 ──
 #不知道为什么要这个请不要修改 会造成位置bug
-    character_zoom = {}            # 角色身高数据容器（由角色定义文件填充）
-    base_room = 0.6                # 立绘整体缩放比例
+    character_zoom = {}            # 角色身高数据容器，由角色定义文件填充格式: {image_tag: {"cm": 身高, "hat": 帽子虚高}}
+    base_room = 0.6                # 立绘整体缩放比例（回退值，角色未在 character_zoom 中定义时使用）
     base_align = (0.5, 1.0)        # 立绘默认锚点（底部居中）
-    MOVE_PRESETS = set(preset_map.keys())
-    _last_pos = {}
+    MOVE_PRESETS = set(preset_map.keys())  # 预设位置名集合，用于自定义语句解析时的判断
+    _last_pos = {}                 # 角色最后位置记录 {tag: (x, y)}，用于 move 语句计算起点
+    _last_expr = {}                # 角色最后表情记录 {tag: attr}，用于表情记忆回退
+
+init python:
+    _original_renpy_show = renpy.show
+    def _capture_renpy_show(name, *args, **kwargs):
+        if isinstance(name, tuple):
+            if len(name) > 1:
+                _last_expr[name[0]] = ' '.join(name[1:])
+        elif isinstance(name, str):
+            parts = name.split()
+            if len(parts) >= 2:
+                _last_expr[parts[0]] = ' '.join(parts[1:])
+        return _original_renpy_show(name, *args, **kwargs)
+    renpy.show = _capture_renpy_show
