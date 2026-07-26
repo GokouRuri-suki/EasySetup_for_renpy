@@ -11,9 +11,10 @@ python early:
     move_dur = 0.5                # 移动时长（秒）
     start_pos = (0.5, -1.0)       # 角色首次出现位置 (xpos, ypos)
     dissolve_dur = 0.3            # show_at 的 默认渐入时长（秒）
-    combo_move_dur = 0.7          # 合体语句（move_shake/shake_move）的移动时长（秒）
+    combo_move_dur = 0.5          # 合体语句（move_shake/shake_move）的移动时长（秒）
     combo_shake_total = 0.48      # 合体语句（move_shake/shake_move）的震动总时长（秒）
     combo_shake_offset = 12       # 合体语句（move_shake/shake_move）的震动振幅（像素）
+    animation_skip_mode = True    # True=点击瞬间完成动画, False=禁止跳过
     side_size = 273               # 侧头像尺寸（像素，正方形边长）
     ppm = 7.5                     # 像素每厘米（立绘缩放计算用） 
                         #一般啊 这个像素下默认还可以
@@ -75,7 +76,6 @@ python early:
     _last_pos = {}                 # 角色最后位置记录 {tag: (x, y)}，用于 move 语句计算起点
     _last_expr = {}                # 角色最后表情记录 {tag: attr}，用于表情记忆回退
 
-#为了实现move shake不写参数和上次调用一致 做的拦截
 init python:
     _original_renpy_show = renpy.show
     def _capture_renpy_show(name, *args, **kwargs):
