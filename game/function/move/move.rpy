@@ -77,7 +77,11 @@ python early:
         _window_hide(None)
         renpy.show(_get_img(tag, attr_str), at_list=[Transform(xpos=sx, ypos=sy, function=MoveAnim(sx, sy, tx, ty, dur))])
         _last_pos = {**_last_pos, tag: (tx, ty)}
-        renpy.pause(dur)
+        if animation_skip_mode:
+            if renpy.pause(dur):
+                renpy.show(_get_img(tag, attr_str), at_list=[Transform(xpos=tx, ypos=ty)])
+        else:
+            renpy.pause(dur, hard=True)
         store._window = "auto"
 
     renpy.register_statement("move",

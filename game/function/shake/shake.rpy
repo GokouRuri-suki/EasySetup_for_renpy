@@ -54,7 +54,11 @@ python early:
         offset = int(offset_str) if offset_str else shake_offset
         _window_hide(None)
         renpy.show(_get_img(tag, attr_str), at_list=[Transform(function=ShakeAnim(dur, offset, axis))])
-        renpy.pause(total)
+        if animation_skip_mode:
+            if renpy.pause(total):
+                renpy.show(_get_img(tag, attr_str))
+        else:
+            renpy.pause(total, hard=True)
         store._window = "auto"
 
     def execute_shake_x(parsed):

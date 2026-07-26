@@ -69,10 +69,18 @@ python early:
         sx, sy = _last_pos.get(tag, start_pos)
         _window_hide(None)
         renpy.show(_get_img(tag, attr_str), at_list=[Transform(function=ShakeAnim(combo_shake_total/6, combo_shake_offset, direction))])
-        renpy.pause(combo_shake_total)
+        if animation_skip_mode:
+            if renpy.pause(combo_shake_total):
+                renpy.show(_get_img(tag, attr_str))
+        else:
+            renpy.pause(combo_shake_total, hard=True)
         renpy.show(_get_img(tag, attr_str), at_list=[Transform(xpos=sx, ypos=sy, function=MoveAnim(sx, sy, tx, ty, combo_move_dur))])
         _last_pos = {**_last_pos, tag: (tx, ty)}
-        renpy.pause(combo_move_dur)
+        if animation_skip_mode:
+            if renpy.pause(combo_move_dur):
+                renpy.show(_get_img(tag, attr_str), at_list=[Transform(xpos=tx, ypos=ty)])
+        else:
+            renpy.pause(combo_move_dur, hard=True)
         store._window = "auto"
 
     renpy.register_statement("shake_move",
@@ -120,9 +128,18 @@ python early:
         tx, ty = _resolve_position(target, None)
         sx, sy = _last_pos.get(tag, start_pos)
         renpy.show(_get_img(tag, attr_str), at_list=[Transform(function=ShakeAnim(combo_shake_total/6, combo_shake_offset, direction))])
-        renpy.pause(combo_shake_total)
+        if animation_skip_mode:
+            if renpy.pause(combo_shake_total):
+                renpy.show(_get_img(tag, attr_str))
+        else:
+            renpy.pause(combo_shake_total, hard=True)
         renpy.show(_get_img(tag, attr_str), at_list=[Transform(xpos=sx, ypos=sy, function=MoveAnim(sx, sy, tx, ty, combo_move_dur))])
         _last_pos = {**_last_pos, tag: (tx, ty)}
+        if animation_skip_mode:
+            if renpy.pause(combo_move_dur):
+                renpy.show(_get_img(tag, attr_str), at_list=[Transform(xpos=tx, ypos=ty)])
+        else:
+            renpy.pause(combo_move_dur, hard=True)
         who(text)
 
     renpy.register_statement("say_shake_move",

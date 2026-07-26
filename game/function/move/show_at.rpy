@@ -73,7 +73,11 @@ python early:
         dd = float(dissolve_str) if dissolve_str else dissolve_dur
         if dd > 0:
             renpy.show(_get_img(tag, attr_str), at_list=[Transform(xpos=tx, ypos=ty, function=FadeInAnim(dd, tx, ty))])
-            renpy.pause(dd)
+            if animation_skip_mode:
+                if renpy.pause(dd):
+                    renpy.show(_get_img(tag, attr_str), at_list=[Transform(xpos=tx, ypos=ty)])
+            else:
+                renpy.pause(dd, hard=True)
         else:
             renpy.show(_get_img(tag, attr_str), at_list=[Transform(xpos=tx, ypos=ty)])
         _last_pos = {**_last_pos, tag: (tx, ty)}
